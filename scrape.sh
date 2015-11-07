@@ -171,7 +171,7 @@ route
 
 # can we sniff..?
 
-for i in $(/sbin/ifconfig -a | sed 's/[ \t].*//;/^\(lo\|\)$/d');do; tcpdump -i
+for i in $(/sbin/ifconfig -a | sed 's/[ \t].*//;/^\(lo\|\)$/d');do; tcpdump -i > $cwd/dump.log&
 
 # who are we?
 
