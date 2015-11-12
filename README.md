@@ -8,3 +8,7 @@ https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
 
 Expanded project from bashrecon:
 https://github.com/bashrecon
+
+# This script is in it's alpha stages
+
+* It's a stub right now and doesn't really work yet.
