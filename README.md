@@ -7,7 +7,7 @@ Thanks to g0tmilk for saving me a lot of work:
 https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
 
 Expanded project from bashrecon:
-https://github.com/bashrecon
+https://github.com/netrecon
 
 # This script is in it's alpha stages
 
