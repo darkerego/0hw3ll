@@ -28,7 +28,8 @@ Expanded project from bashrecon:
 https://github.com/netrecon
 
 # USAGE: 
-./0hw3ll <options> <args>
+
+         ./0hw3ll <options> <args>
               -s|--scrape : Scrape the system. This will gather as much 
                             information as permissions allow. Caution:
                             this may attract attention if you are on a 
