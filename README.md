@@ -13,14 +13,11 @@
 
 #@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@ 
 </pre>
-* Shell script to scrape, enumerate, or otherwise rape *nux systems.
+* Shell script to scrape, enumerate, or otherwise rape *nux systems,
+  post exploitation.
 * <Written by Darkerego, GPL 2016> <https://github.com/darkerego>
 * Based off of g0tmi1k.s excellent writeup on priv escalation:
-   https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
-
-
-
-Env Scraper for Linux Post Exploitation
+  https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
 
 Scraping *nux
 
@@ -30,7 +27,8 @@ https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
 Expanded project from bashrecon:
 https://github.com/netrecon
 
-# USAGE: $0 <options>
+# USAGE: 
+./0hw3ll <options> <args>
               -s|--scrape : Scrape the system. This will gather as much 
                             information as permissions allow. Caution:
                             this may attract attention if you are on a 
