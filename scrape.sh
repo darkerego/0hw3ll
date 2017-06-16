@@ -61,7 +61,7 @@ cat /etc/resolv.conf
 cat /etc/sysconfig/network
 cat /etc/networks
 
-if [[ whoami == "root"]] 
+if [[ whoami == "root" ]];
 then
   iptables -L || echo 'We are not root'
 else
@@ -342,9 +342,9 @@ which tftp || find $fpath -name tftp*
 which ftp || find $fpath -name ftp
 which ncat || find $fpath -name ncat*
 which telnet || find $fpath -name telnet*
-echo -en "\nIf you can see a new line here: \n;than this does not have echo -e\n"}
+echo -en "\nIf you can see a new line here: \n;than this does not have echo -e\n"
 which base64 || echo 'Wtf no base64'
-
+}
 
 spawnPty(){
   
@@ -377,7 +377,7 @@ fi
 }
 
 trySniff(){
-for i in $(/sbin/ifconfig -a | sed 's/[ \t].*//;/^\(lo\|\)$/d');do (tcpdump -i $i > "$cwd/sniff.$i.log";done
+for i in "$(/sbin/ifconfig -a | sed 's/[ \t].*//;/^\(lo\|\)$/d')";do tcpdump -i $i & > "$cwd/sniff.$i.log" 2>&1;done
 }
 
 case $1 in 
@@ -391,6 +391,7 @@ getCrons | tee -a $out &>2 >> /dev/null
 getSUID | tee -a $out &>2 >> /dev/null
 echo 'Done! Make sure you clean up the log!'
 ;;
+
 -P|--pty|--spawn-pty|--spawnpty|--getpty|--get-pty)
 if [ "`tty`" != "not a tty" ]
 then
@@ -398,19 +399,20 @@ then
 else
   echo 'You are already in a pty! Use -f/--force to do it anyway.'
 fi
+;;
 
-case $2 in
--f | --force)
-echo 'Sure, why not? Attempting to spawn anyway because of --force...'
-;;
-esac
-;;
+#case $2 in
+#-f | --force)
+#echo 'Sure, why not? Attempting to spawn anyway because of --force...'
 -d|-dump|tcpdump|--sniff)
 trySniff
 ;;
+
+
 -h|--help)
 doHelp
 ;;
+
 esac
 
 exit
